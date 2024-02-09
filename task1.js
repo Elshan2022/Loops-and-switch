@@ -1,67 +1,66 @@
-let greet = (greeting = "Hello") => greeting;
+const stocks = [
+    {
+        price: 250,
+        sector: "IT",
+        symbol: "MGV",
+    },
+    {
+        price: 60,
+        sector: "HR",
+        symbol: "KKK",
+    },
+    {
+        price: 320,
+        sector: "HR",
+        symbol: "GTR",
+    },
+    {
+        price: 100,
+        sector: "BS",
+        symbol: "MDD",
+    },
+    {
+        price: 100,
+        sector: "BS",
+        symbol: "MDD",
+    },
+];
 
-console.log(greet("Hello World"));
+function stockPriceUpdate() {
 
-//////////////////////////////////
+    const interval = setInterval(() => {
+        const random = Math.random();
+        const index = Math.floor(random * stocks.length);
+        const percentageRandom = (random * 100).toFixed(1);
+        const selectedItem = stocks[index];
+        let selected = stocks.find((item) => {
+            return selectedItem === item;
+        });
+        let price = selected.price;
+        price = price + (percentageRandom * price) / 100;
 
-let factorial = (n) => {
+        console.log("Changing stock", selectedItem.price, selectedItem.symbol);
 
-    if (n <= 0) {
-        return 1;
-    } else {
-        return n * factorial(n - 1)
-    }
-};
-
-console.log("Factorial of number", factorial(3));
-
-/////////////////////////////////////
-
-let sumAll = (...rest) => {
-    let sum = 0;
-    for (let i = 0; i < rest.length; i++) {
-
-        sum += rest[i];
-
-    }
-
-    return sum;
-};
-
-console.log("Sum of numbers", sumAll(2, 4, 6));
+    }, 2000);
 
 
-////////////////////////////////////
 
+    return setTimeout(() => {
+        clearInterval(interval);
 
-function f1() {
-    console.log("I'm F1 function");
-}
-function f2() {
-    console.log("I'm F2 function");
-
-}
-function f3() {
-    console.log("I'm F3 function");
-
-}
-function f4() {
-    console.log("I'm F4 function");
-    f5();
-
-}
-function f5() {
-    console.log("I'm F5 function");
+    }, 2002);
 
 }
 
-function callAllFunction() {
-    console.log("I'am common function");
-    f1();
-    f3();
-    f4();
-    
-}
+stockPriceUpdate();
 
-callAllFunction();
+
+
+const specificStocks = stocks.filter((obj) => {
+    const requiredSector = "HR";
+    const matchedSector = obj.sector === requiredSector;
+    return matchedSector;
+});
+
+console.log("Specific stocks", specificStocks);
 
