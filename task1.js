@@ -1,65 +1,36 @@
-const customers = [
-    { id: 1, name: 'Alice', email: 'alice@example.com', location: { city: 'New York', country: 'USA' } },
-    { id: 2, name: 'Bob', email: 'bob@example.com', location: { city: 'Paris', country: 'France' } },
-    { id: 3, name: 'John', email: 'john@example.com', location: { city: 'Estonia', country: 'Tartu' } },
-    { id: 4, name: 'Fred', email: 'fred@example.com', location: { city: 'Germany', country: 'Berlin' } },
-    { id: 5, name: 'Luis', email: 'luis@example.com', location: { city: 'Russia', country: 'Moscow' } },
+const text = "The rain in Spain stays mainly in the plain. In Spain, in April, the rain is a pain.";
+
+const getAllSpain = (str, regX) => {
+    return str.match(regX);
+};
+
+console.log(getAllSpain(text, /Spain/gi));
 
 
-];
+const getAllRain = (str, regX) => {
+    return [...str.matchAll(regX)]
+};
 
-const orders = [
-    { orderId: 101, customerId: 1, product: 'Laptop', quantity: 1, price: 1200 },
-    { orderId: 102, customerId: 2, product: 'Smartphone', quantity: 2, price: 800 },
-    { orderId: 103, customerId: 3, product: 'Kettle', quantity: 3, price: 900 },
-    { orderId: 104, customerId: 4, product: 'Backpack', quantity: 4, price: 300 },
-    { orderId: 105, customerId: 5, product: 'Ironer', quantity: 5, price: 1600 },
-];
+console.log(getAllRain(text, /rain/gi));
 
 
-const customersEmail = customers.map((object) => {
-    return object.email;
-});
 
-console.log(customersEmail);
+const replaceWith = (str, searchValue, replaceValue) => {
+    return str.replace(searchValue, replaceValue);
+};
 
-const priceGreaterThousand = orders.filter((object) => {
-    const { price, quantity } = object;
-    return (price * quantity) > 1000;
-});
+console.log(replaceWith(text, "Spain", "France"));
 
-console.log(priceGreaterThousand);
+const replaceAllWith = (str, searchValue, replaceValue) => {
+    return str.replaceAll(searchValue, replaceValue);
+};
 
-console.log("-----------------------");
-
-const specificCustomer = customers.find((object) => {
-    return object.name === "Alice"
-});
-
-console.log(specificCustomer);
-
-console.log("----------------------");
-
-const specificOrderId = orders.findIndex((object) => {
-    return object.orderId === 102;
-});
-
-console.log(specificOrderId);
-
-console.log("----------------------");
+console.log(replaceAllWith(text, /rain/gi, "Sun"));
 
 
-const isMatchCountry = customers.some((object) => {
-    return object.location.country === "USA";
-});
+const searchWord = (str, searcher) => {
+    return str.search(searcher);
+};
 
-console.log(isMatchCountry);
 
-console.log("----------------------");
-
-orders.forEach((orderObj) => {
-    let matchedObj = customers.find((cusObj) => orderObj.customerId === cusObj.id);
-
-    const { orderId, quantity, price, product } = orderObj;
-    console.log(`Order ${orderId} by ${matchedObj.name}: ${quantity} x ${product} for ${price} each`);
-});
+console.log(searchWord(text, "plain"));
