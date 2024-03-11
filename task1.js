@@ -1,104 +1,70 @@
-const text = "The rain in Spain stays mainly in the plain. In Spain, in April, the rain is a pain.";
+const createDelay = (message, delay) => {
+    // 2 parametr gonderririk bunlardan biri message digeri ise delay - dir.
+    // message bosdursa eger reject, bos deyilse ise resolve isleyecek.
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (message.length === 0) {
+                reject("Delay failed");
+            } else {
+                resolve(message);
+            }
 
-const getAllSpain = (str, regX) => {
-    return str.match(regX);
-};
-
-console.log(getAllSpain(text, /Spain/gi));
-
-
-const getAllRain = (str, regX) => {
-    return [...str.matchAll(regX)]
-};
-
-console.log(getAllRain(text, /rain/gi));
-
-
-
-const replaceWith = (str, searchValue, replaceValue) => {
-    return str.replace(searchValue, replaceValue);
-};
-
-console.log(replaceWith(text, "Spain", "France"));
-
-const replaceAllWith = (str, searchValue, replaceValue) => {
-    return str.replaceAll(searchValue, replaceValue);
-};
-
-console.log(replaceAllWith(text, /rain/gi, "Sun"));
-
-
-const searchWord = (str, searcher) => {
-    return str.search(searcher);
+        }, delay);
+    });
 };
 
 
-console.log(searchWord(text, "plain"));
 
 
-//phone email password age name validation
-
-const phoneRegX = /^\+\d{1,3}\d{9}$/;
-const emailRegX = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-const nameRegX = /^[a-zA-Z]{2,}$/;
-const passwordRegX = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-const ageRegX = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/
-
-
+const p1 = () => createDelay("Delay start", 500).then((value) => {
+    console.log(value);
+    return value;
+}).catch((error) => {
+    console.log(error);
+    return error;
+});
 
 
 
-const validatePhone = (phoneNumber) => {
-    if (phoneRegX.test(phoneNumber)) {
-        return `${phoneNumber.replace(/(\+\d{3})(\d{2})\d{4}(\d{2})/, '$1$2****$3')}`;
-    } else {
-        return "Please enter phone number correctly";
-    }
-};
-
-console.log(validatePhone("+994553988739"));
-
-const validateEmail = (email) => {
-    if (emailRegX.test(email)) {
-        return email;
-    } else {
-        return "Please enter email correctly";
-    }
-};
 
 
-console.log(validateEmail("elsen@gmail.com"));
+const p2 = () => createDelay("Delay is in progress", 1000).then((value) => {
+    console.log(value);
+    return value;
+}).catch((error) => {
+    console.log(error);
+    return error;
+});
 
 
-const validateName = (name) => {
-    if (nameRegX.test(name)) {
-        return name;
-    } else {
-        return "Please enter name correctly";
-    }
-};
+const p3 = () => createDelay("Delay completed", 1500).then((value) => {
+    console.log(value);
+    return value;
+}).catch((error) => {
+    console.log(error);
+    return error;
+});
 
 
-console.log(validateName("Else"));
-
-const validatePassword = (password) => {
-    if (passwordRegX.test(password)) {
-        return password;
-    } else {
-        return "Password must be at least 1 uppercase letter,1 number and min 8 character";
-    }
-};
 
 
-console.log(validatePassword("Home5697"));
+const promises = [p1(), p2(), p3()];
+
+// promise.all icerisinde promisler olan bir array teleb edir ve bir array return edir
+
+Promise.all(promises).
+    then((value) => {
+        console.log("Promise all then", value);
+        console.log("Promise all then", value);
+        console.log("Promise all then", value);
+    });
 
 
-const validateAge = (age) => {
-    if (ageRegX.test(age)) {
-        return age;
-    } else {
-        return "Please enter age correctly";
-    }
-};
 
-console.log(validateAge(23));
+
+
+
+
+
+
+
